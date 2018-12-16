@@ -1,0 +1,14 @@
+.grid-container {
+  display: grid;
+  width: 500px;
+  height: 500px;
+  grid-template-rows: repeat(10, 10fr);
+  grid-template-columns: repeat(10, 10fr);
+  grid-gap: 5px;
+  margin-bottom: 10px; }
+  .grid-container .block {
+    background: #cfdce2; }
+  .grid-container .on-block {
+    background: #5d696e; }
+
+/*# sourceMappingURL=Grid.css.map */

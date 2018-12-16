@@ -1,0 +1,17 @@
+@import '../variables.scss';
+
+.grid-container {
+    display: grid;
+    width: 500px;
+    height: 500px;
+    grid-template-rows: repeat(10, 10fr);
+    grid-template-columns: repeat(10, 10fr);
+    grid-gap: 5px;
+    margin-bottom: 10px;
+    .block {
+        background: $light-grey;
+    }
+    .on-block {
+        background: $mid-grey;
+    }
+}

@@ -1,0 +1,22 @@
+.arrow-keys {
+  display: flex;
+  flex-direction: column; }
+  .arrow-keys .upper-keys {
+    flex-grow: 1;
+    display: flex;
+    justify-content: center;
+    align-items: flex-end; }
+  .arrow-keys .lower-keys {
+    flex-grow: 1;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start; }
+  .arrow-keys button {
+    background: #cfdce2;
+    border: none;
+    border-radius: 5px;
+    min-width: 50px;
+    min-height: 50px;
+    margin: 2px; }
+
+/*# sourceMappingURL=ArrowKeys.css.map */

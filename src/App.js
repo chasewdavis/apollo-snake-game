@@ -1,28 +1,35 @@
 import React, { Component } from 'react';
-import logo from './logo.svg';
-import './App.css';
+import QueryPostion from './apollo/graphql/QueryPosition';
+import UpdatePosition from './apollo/graphql/UpdatePosition';
+import { compose, graphql, withApollo } from 'react-apollo';
+import Grid from './components/Grid';
+import ArrowKeys from './components/ArrowKeys';
 
 class App extends Component {
-  render() {
-    return (
-      <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <p>
-            Edit <code>src/App.js</code> and save to reload.
-          </p>
-          <a
-            className="App-link"
-            href="https://reactjs.org"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Learn React
-          </a>
-        </header>
-      </div>
-    );
-  }
+    handleUpdatePosition = (props) => {
+        const { updatePosition, position } = props;
+        const { x, y } = position;
+        updatePosition({
+            variables: { x: x + 1, y: y + 1 }
+        })
+    }
+
+    render() {
+        return (
+            <div className="App">
+                <Grid />
+                <ArrowKeys />
+            </div>
+        );
+    }
 }
 
-export default App;
+export default compose(
+    withApollo,
+    graphql(QueryPostion, {
+        props: ({ data: { position } }) => ({ position })
+    }),
+    graphql(UpdatePosition, {
+        name: 'updatePosition'
+    })
+)(App);
