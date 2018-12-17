@@ -28,8 +28,8 @@ export default compose(
     withApollo,
     graphql(QueryPosition, {
         props: ({ data }) => data.position
-	}),
-	graphql(QueryGridSize, {
-		props: ({ data }) => data.grid_size
-	})
+    }),
+    graphql(QueryGridSize, {
+        props: ({ data }) => data.grid_size
+    })
 )(Grid);
