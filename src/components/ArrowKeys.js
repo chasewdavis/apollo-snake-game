@@ -1,14 +1,25 @@
 import React, { Component } from 'react';
 import UpdatePostion from '../apollo/graphql/UpdatePosition';
 import { compose, withApollo, graphql } from 'react-apollo';
+import UpdateTime from '../apollo/graphql/UpdateTime';
+import QueryTime from '../apollo/graphql/QueryTime';
+let intervalSet;
 
 class ArrowKeys extends Component {
     componentDidMount() {
         window.addEventListener('keydown', (e) => this.handleClick(e.key));
     }
 
+    componentWillUnmount() {
+        clearInterval(intervalSet);
+    }
+
     handleClick(direction) {
         const { updatePosition } = this.props;
+
+        if (!intervalSet) { 
+            this.initializeTime(); 
+        }
         
         switch(direction) {
             case 'ArrowUp':
@@ -23,6 +34,20 @@ class ArrowKeys extends Component {
                 console.log('no direction found');
                 break;
         }
+    }
+
+    initializeTime() {
+        const { updateTime } = this.props;
+        const interval = () => this.updateTimeHandler();
+        intervalSet = setInterval(interval, 1000);
+        updateTime({ variables: { interval: intervalSet }});
+    }
+
+    updateTimeHandler() {
+        const { updateTime, time } = this.props;
+        const { tick } = time; 
+        const tock = tick ? 0 : 1
+        updateTime({ variables: { tick: tock } })
     }
 
     render() {
@@ -45,5 +70,11 @@ export default compose(
     withApollo,
     graphql(UpdatePostion, {
         name: 'updatePosition'
+    }),
+    graphql(UpdateTime, {
+        name: 'updateTime'
+    }),
+    graphql(QueryTime, {
+        props: ({ data }) => data
     })
 )(ArrowKeys);

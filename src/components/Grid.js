@@ -3,8 +3,16 @@ import React, { Component } from 'react';
 import { compose, graphql, withApollo } from 'react-apollo';
 import QueryPosition from '../apollo/graphql/QueryPosition';
 import QueryGridSize from '../apollo/graphql/QueryGridSize';
+import QueryVelocity from '../apollo/graphql/QueryVelocity';
+import QueryTime from '../apollo/graphql/QueryTime';
 
 class Grid extends Component {
+    componentDidMount() {
+        const { speed, direction } = this.props;
+        console.log(speed);
+        console.log(direction);
+    }
+
     render() {
         const { x, y, width, height } = this.props;
         const xs = _.range(width);
@@ -31,5 +39,11 @@ export default compose(
     }),
     graphql(QueryGridSize, {
         props: ({ data }) => data.grid_size
-    })
+    }),
+    graphql(QueryTime, {
+        props: ({ data }) => data
+    }),
+    graphql(QueryVelocity, {
+        props: ({ data }) => data.velocity
+    }) 
 )(Grid);

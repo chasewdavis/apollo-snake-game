@@ -2,6 +2,19 @@ import QueryPosition from '../apollo/graphql/QueryPosition';
 
 const resolvers = {
     Mutation: {
+        updateTime: (_, { interval, tick }, { cache }) => {
+            const data = {
+                time: {
+                    __typename: 'time',
+                    interval,
+                    tick
+                }
+            }
+
+            cache.writeData({ data })
+
+            return data.time;
+        },
         updatePosition: (_, { x = 0, y = 0 }, { cache }) => {
             const { position } = cache.readQuery({ query: QueryPosition });
             const { x: prevX, y: prevY } = position;
