@@ -2,11 +2,10 @@ import QueryPosition from '../apollo/graphql/QueryPosition';
 
 const resolvers = {
     Mutation: {
-        updateTime: (_, { interval, tick }, { cache }) => {
+        updateTime: (_, { tick }, { cache }) => {
             const data = {
                 time: {
                     __typename: 'time',
-                    interval,
                     tick
                 }
             }
@@ -14,6 +13,19 @@ const resolvers = {
             cache.writeData({ data })
 
             return data.time;
+        },
+        updateVelocity: (_, { direction, speed = 1 }, { cache }) => {
+            const data = {
+                velocity: {
+                    __typename: 'velocity',
+                    direction,
+                    speed
+                }
+            }
+
+            cache.writeData({ data });
+
+            return data.velocity;
         },
         updatePosition: (_, { x = 0, y = 0 }, { cache }) => {
             const { position } = cache.readQuery({ query: QueryPosition });

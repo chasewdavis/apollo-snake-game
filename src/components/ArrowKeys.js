@@ -3,6 +3,9 @@ import UpdatePostion from '../apollo/graphql/UpdatePosition';
 import { compose, withApollo, graphql } from 'react-apollo';
 import UpdateTime from '../apollo/graphql/UpdateTime';
 import QueryTime from '../apollo/graphql/QueryTime';
+import UpdateVelocity from '../apollo/graphql/UpdateVelocity';
+import QueryVelocity from '../apollo/graphql/QueryVelocity';
+
 let intervalSet;
 
 class ArrowKeys extends Component {
@@ -15,25 +18,27 @@ class ArrowKeys extends Component {
     }
 
     handleClick(direction) {
-        const { updatePosition } = this.props;
+        // const { updatePosition } = this.props;
 
         if (!intervalSet) { 
-            this.initializeTime(); 
+            this.initializeTime();
         }
+
+        this.updateVelocity(direction);
         
-        switch(direction) {
-            case 'ArrowUp':
-                return updatePosition({ variables: { y: -1 } });
-            case 'ArrowLeft':
-                return updatePosition({ variables: { x: -1 } });
-            case 'ArrowDown':
-                return updatePosition({ variables: { y: 1 } });    
-            case 'ArrowRight':
-                return updatePosition({ variables: { x: 1 } });
-            default:
-                console.log('no direction found');
-                break;
-        }
+        // switch(direction) {
+        //     case 'ArrowUp':
+        //         return updatePosition({ variables: { y: -1 } });
+        //     case 'ArrowLeft':
+        //         return updatePosition({ variables: { x: -1 } });
+        //     case 'ArrowDown':
+        //         return updatePosition({ variables: { y: 1 } });    
+        //     case 'ArrowRight':
+        //         return updatePosition({ variables: { x: 1 } });
+        //     default:
+        //         console.log('no direction found');
+        //         break;
+        // }
     }
 
     initializeTime() {
@@ -41,6 +46,11 @@ class ArrowKeys extends Component {
         const interval = () => this.updateTimeHandler();
         intervalSet = setInterval(interval, 1000);
         updateTime({ variables: { interval: intervalSet }});
+    }
+
+    updateVelocity(direction) {
+        const { updateVelocity } = this.props;
+        updateVelocity({ variables: { direction, speed: 1 } });
     }
 
     updateTimeHandler() {
@@ -71,10 +81,16 @@ export default compose(
     graphql(UpdatePostion, {
         name: 'updatePosition'
     }),
+    graphql(UpdateVelocity, {
+        name: 'updateVelocity'
+    }),
     graphql(UpdateTime, {
         name: 'updateTime'
     }),
     graphql(QueryTime, {
+        props: ({ data }) => data
+    }),
+    graphql(QueryVelocity, {
         props: ({ data }) => data
     })
 )(ArrowKeys);

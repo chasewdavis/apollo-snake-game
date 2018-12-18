@@ -10,7 +10,6 @@ const defaults = {
 	},
 	time: {
 		__typename: 'time',
-		interval: null,
 		tick: 0
 	},
     velocity: {
