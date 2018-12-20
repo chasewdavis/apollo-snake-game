@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { compose, graphql, withApollo } from 'react-apollo';
 import QueryTime from '../apollo/graphql/QueryTime';
-import QueryVelocity from '../apollo/graphql/QueryVelocity';
+import QueryDirection from '../apollo/graphql/QueryDirection';
 import UpdatePosition from '../apollo/graphql/UpdatePosition';
 
 class PositionHandler extends Component {
@@ -52,8 +52,8 @@ export default compose(
     graphql(QueryTime, {
         props: ({ data }) => data.time
     }),
-    graphql(QueryVelocity, {
-        props: ({ data }) => data.velocity
+    graphql(QueryDirection, {
+        props: ({ data }) => data.direction
     }),
     graphql(UpdatePosition, {
         name: 'updatePosition'

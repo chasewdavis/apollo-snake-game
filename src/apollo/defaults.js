@@ -12,9 +12,8 @@ const defaults = {
 		__typename: 'time',
 		tick: 0
 	},
-    velocity: {
-        __typename: 'velocity',
-        speed: 0,
+    direction: {
+        __typename: 'direction',
         direction: null
 	},
 	food: {

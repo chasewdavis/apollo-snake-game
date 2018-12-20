@@ -3,8 +3,8 @@ import UpdatePostion from '../apollo/graphql/UpdatePosition';
 import { compose, withApollo, graphql } from 'react-apollo';
 import UpdateTime from '../apollo/graphql/UpdateTime';
 import QueryTime from '../apollo/graphql/QueryTime';
-import UpdateVelocity from '../apollo/graphql/UpdateVelocity';
-import QueryVelocity from '../apollo/graphql/QueryVelocity';
+import UpdateDirection from '../apollo/graphql/UpdateDirection';
+import QueryDirection from '../apollo/graphql/QueryDirection';
 
 let intervalSet;
 
@@ -21,7 +21,7 @@ class ArrowKeys extends Component {
         if (!intervalSet) { 
             this.initializeTime();
         }
-        this.updateVelocity(direction);
+        this.updateDirection(direction);
     }
 
     initializeTime() {
@@ -31,9 +31,9 @@ class ArrowKeys extends Component {
         updateTime({ variables: { interval: intervalSet }});
     }
 
-    updateVelocity(direction) {
-        const { updateVelocity } = this.props;
-        updateVelocity({ variables: { direction, speed: 1 } });
+    updateDirection(direction) {
+        const { updateDirection } = this.props;
+        updateDirection({ variables: { direction } });
     }
 
     updateTimeHandler() {
@@ -55,8 +55,8 @@ export default compose(
     graphql(UpdatePostion, {
         name: 'updatePosition'
     }),
-    graphql(UpdateVelocity, {
-        name: 'updateVelocity'
+    graphql(UpdateDirection, {
+        name: 'updateDirection'
     }),
     graphql(UpdateTime, {
         name: 'updateTime'
@@ -64,7 +64,7 @@ export default compose(
     graphql(QueryTime, {
         props: ({ data }) => data
     }),
-    graphql(QueryVelocity, {
+    graphql(QueryDirection, {
         props: ({ data }) => data
     })
 )(ArrowKeys);

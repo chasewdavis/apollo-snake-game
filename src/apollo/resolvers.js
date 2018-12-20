@@ -14,19 +14,17 @@ const resolvers = {
 
             return data.time;
         },
-        updateVelocity: (_, { direction, speed = 1 }, { cache }) => {
+        updateDirection: (_, { direction }, { cache }) => {
             const data = {
-                velocity: {
-                    __typename: 'velocity',
-                    direction,
-                    speed // TODO - may be able to delete
-                    // time is handling this?
+                direction: {
+                    __typename: 'direction',
+                    direction
                 }
             }
 
             cache.writeData({ data });
 
-            return data.velocity;
+            return data.direction;
         },
         updatePosition: (_, { x = 0, y = 0 }, { cache }) => {
             const { position } = cache.readQuery({ query: QueryPosition });
