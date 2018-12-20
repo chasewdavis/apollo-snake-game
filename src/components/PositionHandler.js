@@ -3,6 +3,7 @@ import { compose, graphql, withApollo } from 'react-apollo';
 import QueryTime from '../apollo/graphql/QueryTime';
 import QueryDirection from '../apollo/graphql/QueryDirection';
 import UpdatePosition from '../apollo/graphql/UpdatePosition';
+import UpdateSnakePositions from '../apollo/graphql/UpdateSnakePositions';
 
 class PositionHandler extends Component {
     componentDidUpdate(prevProps) {
@@ -14,7 +15,7 @@ class PositionHandler extends Component {
     }
 
     updatePosition() {
-        const { updatePosition, direction } = this.props;
+        const { updatePosition, direction, updateSnakePositions } = this.props;
 
         let coords;
 
@@ -36,6 +37,9 @@ class PositionHandler extends Component {
         }
 
         updatePosition({ variables: coords });
+
+        // TODO - explore why typeDefs is not upset if using '2' rather than 2
+        updateSnakePositions({ variables: { positions: [{ x: 2, y: 7 }] }});
     }
 
     shouldUpdatePosition(tick, tock) {
@@ -57,5 +61,8 @@ export default compose(
     }),
     graphql(UpdatePosition, {
         name: 'updatePosition'
+    }),
+    graphql(UpdateSnakePositions, {
+        name: 'updateSnakePositions'
     })
 )(PositionHandler);

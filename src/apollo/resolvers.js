@@ -56,6 +56,9 @@ const resolvers = {
             cache.writeData({ data })
 
             return data.position;
+        },
+        updateSnakePositions: (_, data, { cache }) => {
+            console.log('DATA FROM RESOLVER', data);
         }
     },
     Query: {

@@ -7,6 +7,7 @@ import QueryTime from '../apollo/graphql/QueryTime';
 
 class Grid extends Component {
     render() {
+        // TODO - food
         const { x, y, width, height } = this.props;
         const xs = _.range(width);
         const ys = _.range(height);
