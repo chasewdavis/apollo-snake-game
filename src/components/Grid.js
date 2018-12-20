@@ -7,20 +7,14 @@ import QueryVelocity from '../apollo/graphql/QueryVelocity';
 import QueryTime from '../apollo/graphql/QueryTime';
 
 class Grid extends Component {
-    componentDidMount() {
-        const { speed, direction } = this.props;
-        console.log(speed);
-        console.log(direction);
-    }
-
     render() {
         const { x, y, width, height } = this.props;
         const xs = _.range(width);
         const ys = _.range(height);
         return (
             <div className="grid-container">
-                {_.map(ys, yblock => (
-                    _.map(xs, xblock => (
+                {_.map(ys, (yblock, iy) => (
+                    _.map(xs, (xblock, ix) => (
                         <div 
                             key={`${xblock}${yblock}`} 
                             className={x === xblock && y === yblock ? 'on-block' : 'block'}

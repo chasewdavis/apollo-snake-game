@@ -5,22 +5,44 @@ import QueryVelocity from '../apollo/graphql/QueryVelocity';
 import UpdatePosition from '../apollo/graphql/UpdatePosition';
 
 class PositionHandler extends Component {
-    state = {
-        tick: null
+    componentDidUpdate(prevProps) {
+        const { tick } = prevProps;
+        const { tick: tock } = this.props;
+        if (this.shouldUpdatePosition(tick, tock)) {
+            this.updatePosition();
+        }
     }
 
-    componentDidUpdate(prevProps) {
-        // if (this.state.tick !== prevProps.tick ) { 
-        //     console.log('update position');
-        //     console.log('\n')
-        //     this.setState({ tick: prevProps.tick }) 
-        // }
+    updatePosition() {
+        const { updatePosition, direction } = this.props;
+
+        let coords;
+
+        switch(direction) {
+            case 'ArrowUp': 
+                coords = { y: -1 };
+                break;
+            case 'ArrowRight':
+                coords = { x: 1 };
+                break;
+            case 'ArrowDown':
+                coords = { y: 1 };
+                break;
+            case 'ArrowLeft':
+                coords = { x: -1 };
+                break;
+            default:
+                coords = { x: 0, y: 0 }
+        }
+
+        updatePosition({ variables: coords });
+    }
+
+    shouldUpdatePosition(tick, tock) {
+        return tick !== tock;
     }
 
     render() {
-        // console.log('speed', speed);
-        // console.log('direction', direction);
-
         return <div />
     }
 }

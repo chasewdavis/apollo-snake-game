@@ -18,33 +18,16 @@ class ArrowKeys extends Component {
     }
 
     handleClick(direction) {
-        // const { updatePosition } = this.props;
-
         if (!intervalSet) { 
             this.initializeTime();
         }
-
         this.updateVelocity(direction);
-        
-        // switch(direction) {
-        //     case 'ArrowUp':
-        //         return updatePosition({ variables: { y: -1 } });
-        //     case 'ArrowLeft':
-        //         return updatePosition({ variables: { x: -1 } });
-        //     case 'ArrowDown':
-        //         return updatePosition({ variables: { y: 1 } });    
-        //     case 'ArrowRight':
-        //         return updatePosition({ variables: { x: 1 } });
-        //     default:
-        //         console.log('no direction found');
-        //         break;
-        // }
     }
 
     initializeTime() {
         const { updateTime } = this.props;
         const interval = () => this.updateTimeHandler();
-        intervalSet = setInterval(interval, 1000);
+        intervalSet = setInterval(interval, 500);
         updateTime({ variables: { interval: intervalSet }});
     }
 
@@ -62,16 +45,7 @@ class ArrowKeys extends Component {
 
     render() {
         return (
-            <div className="arrow-keys">
-                <div className="upper-keys">
-                    <button onClick={() => this.handleClick('ArrowUp')}/>
-                </div>
-                <div className="lower-keys">
-                    <button onClick={() => this.handleClick('ArrowLeft')}/>
-                    <button onClick={() => this.handleClick('ArrowDown')}/>
-                    <button onClick={() => this.handleClick('ArrowRight')}/>
-                </div>
-            </div>
+            <div />
         )
     }
 }

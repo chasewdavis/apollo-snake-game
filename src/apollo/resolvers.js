@@ -19,7 +19,8 @@ const resolvers = {
                 velocity: {
                     __typename: 'velocity',
                     direction,
-                    speed
+                    speed // TODO - may be able to delete
+                    // time is handling this?
                 }
             }
 
