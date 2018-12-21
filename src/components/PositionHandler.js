@@ -39,7 +39,7 @@ class PositionHandler extends Component {
         updatePosition({ variables: coords });
 
         // TODO - explore why typeDefs is not upset if using '2' rather than 2
-        updateSnakePositions({ variables: { positions: [{ x: 2, y: 7 }] }});
+        updateSnakePositions({ variables: { positions: [{ x: true, y: 7 }] }});
     }
 
     shouldUpdatePosition(tick, tock) {

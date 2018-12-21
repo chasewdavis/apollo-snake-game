@@ -57,8 +57,23 @@ const resolvers = {
 
             return data.position;
         },
-        updateSnakePositions: (_, data, { cache }) => {
-            console.log('DATA FROM RESOLVER', data);
+        updateSnakePositions: (_, {x, y}, { cache }) => {
+            
+
+            return [];
+        },
+        updateFood: (_, { x, y }, { cache }) => {
+            const data = {
+                food: {
+                    __typename: 'food',
+                    x,
+                    y
+                }
+            }
+
+            cache.writeData({ data });
+
+            return data.food;
         }
     },
     Query: {

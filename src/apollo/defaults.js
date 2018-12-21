@@ -1,8 +1,8 @@
 const defaults = {
     position: {
         __typename: 'position',
-        x: 2,
-        y: 2
+        x: 0,
+        y: 1
 	},
 	snake: {
 		__typename: 'snake_positions',

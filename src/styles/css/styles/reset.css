@@ -219,9 +219,7 @@ input[type="submit"] {
   -webkit-appearance: button;
   /* 2 */
   cursor: pointer;
-  /* 3 */
-  *overflow: visible;
-  /* 4 */ }
+  /* 3 */ }
 
 /**
  * Re-set default cursor for disabled elements.
