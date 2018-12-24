@@ -1,7 +1,11 @@
-import React, { Component } from 'react';
+import React, { Component, Fragment } from 'react';
 import { compose, graphql, withApollo } from 'react-apollo';
+
 import QueryTime from '../apollo/graphql/QueryTime';
+import QueryNextTail from '../apollo/graphql/QueryNextTail';
 import QueryDirection from '../apollo/graphql/QueryDirection';
+import QuerySnakePositions from '../apollo/graphql/QuerySnakePositions';
+
 import UpdatePosition from '../apollo/graphql/UpdatePosition';
 import UpdateSnakePositions from '../apollo/graphql/UpdateSnakePositions';
 
@@ -15,22 +19,22 @@ class PositionHandler extends Component {
     }
 
     updatePosition() {
-        const { updatePosition, direction, updateSnakePositions } = this.props;
+        const { updatePosition, direction, updateSnakePositions, addToTail, snake_positions } = this.props;
 
         let coords;
 
         switch(direction) {
             case 'ArrowUp': 
-                coords = { y: -1 };
+                coords = { x: 0, y: -1 };
                 break;
             case 'ArrowRight':
-                coords = { x: 1 };
+                coords = { x: 1, y: 0 };
                 break;
             case 'ArrowDown':
-                coords = { y: 1 };
+                coords = { x: 0, y: 1 };
                 break;
             case 'ArrowLeft':
-                coords = { x: -1 };
+                coords = { x: -1, y: 0 };
                 break;
             default:
                 coords = { x: 0, y: 0 }
@@ -38,8 +42,8 @@ class PositionHandler extends Component {
 
         updatePosition({ variables: coords });
 
-        // TODO - explore why typeDefs is not upset if using '2' rather than 2
-        updateSnakePositions({ variables: { positions: [{ x: true, y: 7 }] }});
+        // TODO - position for snake body
+        updateSnakePositions({ variables: { snake_positions, addToTail }});
     }
 
     shouldUpdatePosition(tick, tock) {
@@ -47,7 +51,7 @@ class PositionHandler extends Component {
     }
 
     render() {
-        return <div />
+        return <Fragment />
     }
 }
 
@@ -58,6 +62,12 @@ export default compose(
     }),
     graphql(QueryDirection, {
         props: ({ data }) => data.direction
+    }),
+    graphql(QueryNextTail, {
+        props: ({ data }) => data.next_tail
+    }),
+    graphql(QuerySnakePositions, {
+        props: ({ data }) => data.snake
     }),
     graphql(UpdatePosition, {
         name: 'updatePosition'

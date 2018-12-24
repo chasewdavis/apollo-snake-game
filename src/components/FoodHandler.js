@@ -7,13 +7,12 @@ import QueryGridSize from '../apollo/graphql/QueryGridSize';
 import QueryPosition from '../apollo/graphql/QueryPosition';
 import QueryDirection from '../apollo/graphql/QueryDirection';
 import UpdateFood from '../apollo/graphql/UpdateFood';
+import UpdateNextTail from '../apollo/graphql/UpdateNextTail';
 
 class FoodHandler extends Component {
-    // food should randomly appear when direction is not null
-    // food must appear anywhere on the grid 
-    // other than the the snake's current positions 
+    // TODO - FOOD THAT GETS EATON
+
     componentDidUpdate(prevProps) {
-        console.log('Food Handler', prevProps);
         const { 
             food, 
             position, 
@@ -26,6 +25,8 @@ class FoodHandler extends Component {
             const openSpaces = this.locateOpenSpaces({ position, positions, grid_size, direction })
             this.spawnFood(openSpaces);
         }
+
+        this.addToSnake(this.foodWasConsumed())
 
     }
 
@@ -81,6 +82,17 @@ class FoodHandler extends Component {
         updateFood({ variables: { x, y } });
     }
 
+    foodWasConsumed() {
+        const { food, position } = this.props;
+        return food.x === position.x && food.y === position.y;
+    }
+
+    addToSnake(addToTail) {
+        const { updateNextTail, position } = this.props;
+        const { x, y } = position;
+        updateNextTail({ variables: { addToTail, x, y }});
+    }
+
     render() {
         return (
             <div />
@@ -107,5 +119,9 @@ export default compose(
     }),
     graphql(UpdateFood, {
         name: 'updateFood'
-    })
+    }),
+    graphql(UpdateNextTail, {
+        name: 'updateNextTail'
+    }),
+
 )(FoodHandler);

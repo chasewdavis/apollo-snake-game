@@ -1,12 +1,18 @@
 const defaults = {
     position: {
         __typename: 'position',
-        x: 0,
-        y: 1
+        x: null,
+        y: null
 	},
 	snake: {
 		__typename: 'snake_positions',
-		positions: []
+		snake_positions: []
+	},
+	next_tail: {
+		__typename: 'next_tail',
+		addToTail: false,
+		x: null,
+		y: null
 	},
 	time: {
 		__typename: 'time',

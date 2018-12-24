@@ -52,6 +52,12 @@ class ArrowKeys extends Component {
 
 export default compose(
     withApollo,
+    graphql(QueryTime, {
+        props: ({ data }) => data
+    }),
+    graphql(QueryDirection, {
+        props: ({ data }) => data
+    }),
     graphql(UpdatePostion, {
         name: 'updatePosition'
     }),
@@ -60,11 +66,5 @@ export default compose(
     }),
     graphql(UpdateTime, {
         name: 'updateTime'
-    }),
-    graphql(QueryTime, {
-        props: ({ data }) => data
-    }),
-    graphql(QueryDirection, {
-        props: ({ data }) => data
     })
 )(ArrowKeys);

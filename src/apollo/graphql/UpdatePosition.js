@@ -2,7 +2,7 @@ import gql from 'graphql-tag';
 
 export default gql`
     mutation updatePosition($x: Int, $y: Int) {
-        updatePosition(x: $x, y: $y) @client {
+        updatePosition(xDirection: $x, yDirection: $y) @client {
             x
             y
         }
